@@ -1,0 +1,325 @@
+<article lang='en'></article>
+<b:loop values='1 to 3' var='l'><div expr:class='"wave wave" + data:l'/></b:loop>
+
+<b:class cond='data:view.isPreview' name='preview'/>
+<b:class cond='data:view.isMultipleItems' name='feed-view'/>
+<b:class cond='data:view.isSingleItem' name='item-view'/>
+<b:class cond='data:view.isPost' name='post-view'/>
+<b:class cond='data:view.isArchive' name='archive-view'/>
+<b:class cond='data:view.isLabelSearch' name='label-view'/>
+<b:class cond='data:view.isSearch and !data:view.isLabelSearch' name='search-view'/>
+<b:class cond='data:blog.searchQuery' name='search-query'/>
+<b:class cond='data:view.isError' name='error-view'/>
+<b:class cond='data:view.isPage' name='page-view'/>
+<b:class cond='data:view.isSingleItem or data:view.isLayoutMode' name='layout'/>
+<b:class cond='data:view.isHomepage' name='home'/>
+<b:class cond='data:blog.isPrivate' name='isPrivate'/>
+<b:class cond='data:blog.isMobile' name='isMobile'/>
+<b:class cond='data:blog.isMobileRequest' name='isMobileRequest'/>
+<b:class cond='data:blog.isMobile and data:blog.isMobileRequest' expr:name='data:blog.mobileClass'/>
+<b:class cond='data:link.isCurrentPage' name='selected'/>
+<b:class cond='data:posts.empty' name='mty'/>
+<b:class cond='data:post.isFirstPost' name='firstPost'/>
+
+<!-- Label Classes -->
+<b:class cond='data:post.labels any (l => l.name == "OVA")' name='OVA'/>
+<b:class cond='data:post.labels any (l => l.name == "TV")' name='TV'/>
+<b:class cond='data:post.labels any (l => l.name == "BD")' name='BD'/>
+<b:class cond='data:post.labels any ( l =&gt; l.name in data:categoryBook )' name='book'/>
+<b:class cond='data:post.labels any ( l =&gt; l.name in data:categoryVideo )' name='video'/>
+
+<b:class cond='data:post.labels any ( l =&gt; l.name in data:categoryVideo )' name='video'/>
+<b:class cond='data:post.labels any ( l =&gt; l.name in data:categoryBook )' name='book'/>
+<b:class cond='data:post.labels any ( l =&gt; l.name in ["dlStream", "readNovel", "readManga"] )' name='myclass'/>
+<b:class cond='data:post.labels none ( l =&gt; l.name in ["readNovel", "readManga", "dlStream"] )' name='myclass'/>
+
+<b:class expr:name='&quot;lang-&quot;+data:blog.languageDirection'/>
+<b:class expr:name='&quot;lang-&quot;+data:blog.localeUnderscoreDelimited'/>
+<b:class expr:name='&quot;viewType-&quot;+data:view.type'/>
+<b:class expr:name='&quot;pageType-&quot;+data:blog.pageType'/>
+
+	  <b:class cond='data:post.featuredImage' name='image'/>
+	  <b:class cond='not data:post.featuredImage' name='no-image'/>
+	  <b:class cond='data:post.labels and not data:post.labels.empty' name='has-labels'/>
+	  <b:if cond='data:this.isSearch'>
+
+<!-- Target More -->
+<b:if cond='data:post.showBacklinks'><!--content--></b:if>
+<b:if cond='data:displayname == "specific-name"'><!--content--></b:if>
+<b:if cond='data:post.numComments == [number_here]'><!--content--></b:if>
+<b:if cond='data:post.hasJumpLink'><!--content--></b:if>
+<b:if cond='data:post.allowComments'><!--content--></b:if>
+<b:if cond='data:blog.metaDescription'><!--content--></b:if>
+<b:if cond='data:mobile'><!--content--></b:if>
+<b:if cond='data:title'><!--content--></b:if>
+<b:if cond='data:title != ""'><!--content--></b:if>
+<b:if cond='data:showThumbnails == "false/true"'><!--content--></b:if>
+<b:if cond='data:showSnippets == "false/true"'><!--content--></b:if>
+<b:if cond='data:post.thumbnail'><!--content--></b:if>
+<b:if cond='data:display == "list"'><!--content--></b:if>
+<b:if cond='data:blog.url == data:label.url'><!--content--></b:if>
+<b:if cond='data:showFreqNumbers'><!--content--></b:if>
+<b:if cond='data:useImage'><!--content--></b:if>
+
+<!-- Condition by specific label -->
+<b:if cond='data:blog.searchLabel== "Label Name"'>
+<!--Content for Label Name-->
+</b:if>
+<b:if cond='data:blog.SearchLabel != "Label Name"'>
+  <!--Content for Label Page-->
+</:if>
+
+<!-- Specific Post by URL -->
+<b:if cond='data:blog.url == data:blog.canonicalHomepageUrl + "2022/11/test.html"'>
+  <!-- a item page from august 2022 with post-title 'test'-->
+</b:if>
+<b:if cond='data:blog.url == "URL LINK"'>
+  <!-- a item page 'URL LINK'-->
+</b:if>
+
+<b:if cond='data:post.showBacklinks'/>
+<b:if cond='data:displayname == "Fred" or data:blog.pageType == "static_page"'/>
+	  
+<b:if cond='data:post.labels any (l => l.name == "PUT_LABEL_NAME_HERE")'>
+ADD CONTENT HERE
+</b:if>
+
+<!-- Section Condition-->
+<b:section cond='data:widgets.PageList.notEmpty' id='page-list'/>
+<b:section cond='cond='(data:widgets.PageList filter (w => w.id == "PageList1")).notEmpty'' id='page-list'/>
+
+<!-- TIME -->
+<time>
+<b:eval expr='data:post.date format &quot;MMM dd&quot; '/>
+<b:eval expr='data:post.date format &quot;hh mm bbbb&quot; '/></time>
+<time>Updated: <data:post.lastUpdated.jsonEscaped/></time>
+
+<!-- Post Snippets img -->
+<b:if cond='data:post.featuredImage'>
+		  <div class='snippet-thumbnail'>
+			<b:include data='{                                     image: data:post.featuredImage,                                     imageSizes: [32, 64, 128, 256],                                     imageRatio: &quot;1:1&quot;,                                     sourceSizes: &quot;(max-width: 800px) 20vw, 128px&quot;                                  }' name='responsiveImage'/>
+		  </div>
+		</b:if>
+
+<div expr:style='"max-width: " + (data:width + 10) + "px;"'/>
+<b:with value='data:i + 2' var='num'><b:eval expr='data:num'/></b:with>
+
+<!-- Blogger: getting the featured image to show up in the header -->
+<b:loop index='i' values='data:widgets.Blog.first.posts' var='post'>
+
+  <b:with value='data:post.featuredImage ?: "https://1.bp.blogspot.com/-_bZMj71nEGc/Xij1Et5dzPI/AAAAAAAAgBg/iq5xmgI-DqkegOXEBiFbh6xdFcGmBP39QCLcBGAsYHQ/s1600/default-image-dark_1920x1080.png"' var='featuredImg'>
+    <b:include data='{ image: data:featuredImg, selector: ("#featured-image-link" + data:i) }' name='responsiveImageStyle'/>
+  </b:with>
+
+</b:loop>
+
+
+<!-- Thumbnail dengan class background-image -->
+<div expr:class='&quot;img&quot; + data:post.id' var='post'>
+              <b:with value='&quot;img&quot; + data:post.id' var='thumbClassName'>
+                <b:if cond='data:post.featuredImage'>
+                  <style>
+                    .<data:thumbClassName/> {background-image:url(<b:eval expr='resizeImage(data:post.featuredImage, 800, &quot;1:1&quot;).cssEscaped'/>);}
+                  </style>
+                </b:if>
+              </b:with> 
+            </div>
+
+
+<!-- Class dengan nomor di ujung -->
+<b:with value='data:i + 1' var='num'>
+<b:include data='post' name='postCommentsAndAd'/>
+</b:with>
+<b:includable id='postCommentsAndAd' var='post'>
+<article expr:class='"x" + data:num'/>
+</b:includable>
+
+<!-- Lamda Filter Label-->
+<b:with value='data:posts filter (p =&gt; p.labels any ( l =&gt; l.name == &quot;Manga&quot; ))' var='filteredData'>     
+<b:loop index='index' values='data:filteredData' var='post'>
+	<h3><a expr:href='data:post.url'><data:post.title/></a></h3>
+</b:loop>
+</b:with>
+
+<!-- Author Image -->
+<b:include data='{image: data:post.author.authorPhoto.image,imageRatio: &quot;1:1&quot;, imageSizes: [84, 168],sourceSizes: &quot;23px&quot;,imageClass: &quot;post-author-profile-pic&quot;}' name='responsiveImage'/>
+
+<!-- Markup Snippets responsiveImage -->
+<b:include name='responsiveImage'
+	   data='{
+				image: data:post.featuredImage,
+				imageSizes: [32, 64, 128, 256],
+				imageRatio: "1:1",
+				sourceSizes: "(max-width: 800px) 12vw, 128px"
+			 }' />
+
+
+<b:includable id='chapterNavigation'>
+<div class='chapter-navigation'>
+  <b:with value='["Action"]' var='next'>
+  <b:loop index='i' values='data:newerPageUrl' var='lib'>
+  <b:if cond='data:lib in data:next'>
+	<span id='blog-pager-newer-link'>
+	  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + "_blog-pager-newer-link"' expr:title='data:newerPageTitle'>Next</a>
+	</span>
+  </b:if>
+	</b:loop>
+  </b:with>
+  <span class='main-chapter-link'><a class='home-link' expr:href='data:blog.homepageUrl'> Home</a></span>
+  <b:if cond='data:olderPageUrl'>
+	<span id='blog-pager-older-link'>
+	  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + "_blog-pager-older-link"' expr:title='data:olderPageTitle'>Previous</a>
+	</span>
+  </b:if>
+</div>
+</b:includable>
+
+<!-- b:eval -->
+<style>
+.post-thumbnail {
+background-image: url(
+	<b:eval expr='resizeImage(data:post.featuredImage, 385).cssEscaped' />);
+}
+</style>
+
+<b:includable id='feedLinks'>
+<b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+<b:if cond='data:feedLinks'>
+  <div class='blog-feeds'>
+	<b:include data='feedLinks' name='feedLinksBody'/>
+  </div>
+</b:if>
+<b:else/> <!--Post feed links -->
+<div class='post-feeds'>
+  <b:loop values='data:posts' var='post'>
+	<b:if cond='data:post.allowComments and data:post.feedLinks'>
+	  <b:include data='post.feedLinks' name='feedLinksBody'/>
+	</b:if>
+  </b:loop>
+</div>
+</b:if>
+</b:includable>
+  <b:includable id='feedLinksBody' var='links'>
+<div class='feed-links'>
+<data:messages.subscribeTo/>
+<b:loop values='data:links' var='f'>
+ <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+</b:loop>
+</div>
+</b:includable>
+
+<!-- Variable Condition  -->
+
+<Group description="Theme Options">
+  <Variable name="darkmode" description="Native Dark Mode" type="length" default="0px" min="0px" max="1px" value="0px"/>
+  <Variable name="userdarkmode" description="User Dark Mode" type="length" default="1px" min="0px" max="1px" value="1px"/>
+  <Variable name="fixedmenu" description="Fixed Menu" type="length" default="1px" min="0px" max="1px" value="1px"/>
+  <Variable name="sidebar" description="Left Sidebar" type="length" default="0px" min="0px" max="1px" value="0px"/>
+  <Variable name="fixedsidebar" description="Fixed Sidebar" type="length" default="1px" min="0px" max="1px" value="1px"/>
+  <Variable name="postrate" description="Fake post rating" type="length" default="1px" min="0px" max="1px" value="1px"/>
+  <Variable name="blockcode" description="Code Syntax Highlight" type="length" default="1px" min="0px" max="1px" value="1px"/>
+</Group>
+
+<b:includable id='theme-options-js'>
+  <b:if cond='data:skin.vars.fixedmenu == &quot;0px&quot; or (data:skin.vars.fixedsidebar == &quot;0px&quot;) or (data:skin.vars.darkmode == &quot;1px&quot;) or (data:skin.vars.userdarkmode == &quot;0px&quot;)'>
+  <!-- Theme Options JS -->
+  <b:tag name='script' type='text/javascript'><b:if cond='data:skin.vars.fixedmenu == &quot;0px&quot;'>var fixedMenu=false;</b:if><b:if cond='data:skin.vars.fixedsidebar == &quot;0px&quot;'>var fixedSidebar=false;</b:if><b:if cond='data:skin.vars.darkmode == &quot;1px&quot;'>var darkMode=true;</b:if><b:if cond='data:skin.vars.userdarkmode == &quot;0px&quot;'>var userDarkMode=false;</b:if></b:tag>
+  </b:if>
+</b:includable>
+
+
+ <!-- Source Code Rating Bintang Blogger  -->
+ 
+<b:with value='["0","1","2","3","4","5","6","7","8","9"]' var='checkNumber'>
+  <b:if cond='data:post.labels'>
+    <b:loop values='data:post.labels' var='item'>
+      <b:with value='"String: " + data:item.name' var='string'>
+        <b:loop values='data:checkNumber' var='first'>
+          <b:if cond='data:string contains data:first + "."'>
+            <b:loop values='data:checkNumber' var='last'>
+              <b:if cond='data:string contains "." + data:last'>
+                <div class='rating'>
+                  <div class='rating-prc' itemscope='itemscope' itemprop='aggregateRating'
+                    itemtype='//schema.org/AggregateRating'>
+                    <meta itemprop='worstRating' content='1' />
+                    <meta itemprop='bestRating' content='10' />
+                    <meta itemprop='ratingCount' content='10' />
+                    <div class='rtp'>
+                      <b:with value='10' var='ten'>
+                        <b:if cond='data:string contains data:ten + "."'>
+                          <div class='rtb'><span style='width:100%'></span></div>
+                          <b:else />
+                          <div class='rtb'><span expr:style='"width:" + data:first + "" + data:last + "%"'></span></div>
+                        </b:if>
+                      </b:with>
+                    </div>
+                    <div class='num' itemprop='ratingValue' expr:content='data:item.name'>
+                      <data:item.name />
+                    </div>
+                  </div>
+                </div>
+              </b:if>
+            </b:loop>
+          </b:if>
+        </b:loop>
+      </b:with>
+    </b:loop>
+  </b:if>
+</b:with>
+
+
+<!-- Fitur Enclosures  -->
+<!-- https://www.pondokjeruk.com/2017/09/fitur-enclosures-lampiran-blogger.html  -->
+<b:if cond='data:view.isPost'>
+<b:loop values='data:post.enclosures' var='fs'>
+<b:if cond='data:fs.mimeType in {"image/jpeg","image/gif","image/png"}'>
+  <p>
+ <img expr:alt='data:post.title' expr:src='data:fs.url'/>
+  </p>
+<b:elseif cond='data:fs.mimeType in {"video/mp4","video/x-msvideo","video/quicktime"}'/>
+  <p>
+ <iframe class='embed-responsive-item' expr:src='data:fs.url'/>
+  </p>
+<b:elseif cond='data:fs.mimeType in {"audio/aac","audio/mpeg","audio/ogg"}'/>
+  <p>
+ <audio controls='controls'>
+   <source expr:src='data:fs.url' type='audio/mpeg'/>
+ </audio>
+  </p>
+<b:else/>
+  <p>
+ <a expr:href='data:fs.url'>Lampiran link <data:fs.mimeType/></a>
+  </p>
+</b:if>
+</b:loop>
+</b:if>
+
+<!-- https://mystady.com/blog/template-tags-blogger-media-enclosure-links -->
+<b:loop values='data:post.enclosures' var='enclosure'>
+<!--application/zip == Download-->
+<b:if cond='data:enclosure.mimeType == "application/zip"'>
+<a expr:href='data:enclosure.url' rel='enclosure' expr:title='"Download " + data:enclosure.url'>Download ⇣</a>
+</b:if>
+<!--application/x-rar-compressed == Download-->
+<b:if cond='data:enclosure.mimeType == "application/x-rar-compressed"'>
+<a expr:href='data:enclosure.url' rel='enclosure' expr:title='"Download " + data:enclosure.url'>Download ⇣</a>
+</b:if>
+<!--application/x-gzip == Download-->
+<b:if cond='data:enclosure.mimeType == "application/x-gzip"'>
+<a expr:href='data:enclosure.url' rel='enclosure' expr:title='"Download " + data:enclosure.url'>Download ⇣</a>
+</b:if>
+<!--custom/user-script == Install-->
+<b:if cond='data:enclosure.mimeType == "custom/user-script"'>
+<a expr:href='data:enclosure.url' rel='enclosure' expr:title='"Download " + data:enclosure.url'>Install ⇣</a>
+</b:if></b:loop>
+
+
+ <!-- Blog feed for more than 500 posts  -->
+For instance, if the first 500 posts of your blog feed are here:
+
+    http://YOURBLOG.blogspot.com/feeds/posts/default?max-results=999
+
+the second 500 posts are here:
+
+    http://YOURBLOG.blogspot.com/feeds/posts/default?max-results=999&start-index=501
+

@@ -267,6 +267,78 @@ background-image: url(
   </b:if>
 </b:with>
 
+ <!-- Label Filter  -->
+<b:loop values='data:post.labels' var='label'>
+<b:if cond='data:label.name in ["Anime", "Manga", "Movies"]'>
+<a expr:href='data:label.url' rel='tag'>
+<data:label.name/>
+</a>
+</b:if>
+</b:loop>
+
+<b:loop values='data:post.labels' var='label'>
+<b:if cond='data:label.name in ["Anime"]'>
+<a expr:href='data:label.url' rel='tag'>
+<data:label.name/>
+</a>
+<b:elseif cond='data:label.name in ["Manga"]'/>
+<a expr:href='data:label.url' rel='tag'>
+<data:label.name/>
+</a>
+<b:elseif cond='data:label.name in ["Movies"]'/>
+<a expr:href='data:label.url' rel='tag'>
+<data:label.name/>
+</a>
+</b:if>
+</b:loop>
+
+<b:with value='["Episode", "Eps", "Ep"]' var='checkEpisode'>
+<b:if cond='data:post.labels'>
+<b:loop values='data:post.labels' var='item'>
+<b:with value='"String: " + data:item.name' var='string'>
+<b:loop values='data:checkEpisode' var='first'>
+  <b:if cond='data:string contains data:first + " "'>
+    <span class="eps">data:item.name/></span>
+  </b:if>
+</b:loop>
+</b:with>
+</b:loop>
+</b:if>
+</b:with>
+
+<b:with value='["Winter","Summer","Spring","Fall"]' var='checkMusim'>
+<b:if cond='data:post.labels'>
+<b:loop values='data:post.labels' var='item'>
+<b:with value='"String: " + data:item.name' var='string'>
+<b:loop values='data:checkMusim' var='first'>
+  <b:if cond='data:string contains data:first + " "'>
+    <data:item.name/>
+  </b:if>
+</b:loop>
+</b:with>
+</b:loop>
+</b:if>
+</b:with>
+
+<b:with value='["Vol","Ch"]' var='checkVol'>
+<b:if cond='data:post.labels'>
+<div class="New_Ch">
+<b:loop values='data:post.labels' var='item'>
+<b:with value='"String: " + data:item.name' var='string'>
+  <b:loop index='i' values='data:checkVol'  var='first'>
+    <b:with value='data:i + 1' var='nb'>
+      <b:if cond='data:i in [1]'>
+	<b:if cond='data:string contains data:first + "."'>
+	  <a expr:href='data:post.url'><span><i class="fas fa-file-alt"></i> <data:item.name/></span></a>
+	</b:if>
+      </b:if>
+    </b:with>
+  </b:loop>
+</b:with>
+</b:loop>
+</div>
+</b:if>
+</b:with>
 
 <!-- Fitur Enclosures  -->
 <!-- https://www.pondokjeruk.com/2017/09/fitur-enclosures-lampiran-blogger.html  -->

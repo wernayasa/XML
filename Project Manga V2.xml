@@ -1,0 +1,113 @@
+<div class='listupd' data-label="Project" data-post="150"></div>
+<script>
+  let noThumbnail = "https://1.bp.blogspot.com/-XSp30PahyTM/YK37Rq_-M7I/AAAAAAAABCc/01K0sUhw-2YI7vr48wqMIAVoMLDEUdK2gCLcBGAsYHQ/s320/No%2BImage%2BBerkas%2BKita.jpg";
+  var timeString = function(t) {
+    if (/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(t)) {
+      var e = t,
+        n = e.substring(0, 4),
+        i = e.substring(5, 7),
+        r = e.substring(8, 10),
+        o = new Array;
+      return o[1] = "Jan", o[2] = "Feb", o[3] = "Mar", o[4] = "Apr", o[5] = "May", o[6] = "Jun", o[7] = "Jul", o[8] = "Aug", o[9] = "Sep", o[10] = "Oct", o[11] = "Nov", o[12] = "Dec", r + " " + o[parseInt(i, 10)] + " " + n
+    }
+    return !1
+  },
+  imageString = function(t) {
+    var e = t.indexOf("<img"),
+      n = t.indexOf('src="', e),
+      i = t.indexOf('"', n + 5),
+      r = t.substr(n + 5, i - n - 5);
+    return -1 != e && -1 != n && -1 != i && "" != r ? r : noThumbnail
+  },
+  bookPost = {
+    mainItemArr: new Array,
+    subItemArr: new Array,
+    compile: function(t) {
+      var e = t.feed.entry;
+      if (!e) return !1;
+      var n = document.querySelector(".listupd");
+      if (!n) return !1;
+      if (e.forEach(function({
+          category: t,
+          content: e,
+          link: n,
+          title: i,
+          published: r,
+          media$thumbnail: o
+        }) {
+          var a = i.$t,
+            s = t.map(function(t) {
+              return t.term
+            }),
+            u = n.find(function(t) {
+              if ("alternate" === t.rel) return t
+            }).href,
+            l = "function" == typeof timeAgo ? timeAgo(new Date(r.$t)) : timeString(r.$t),
+            c = e.$t && e.$t.length > 0 ? e.$t : "Nothing",
+            m = o ? o.url.replace(/\/s[0-9]+(\-c)?/, "/w150-h210-p-k-no-nu") : imageString(c);
+          s = s.filter(function(t) {
+            if ("Project" !== t) return t
+          }), bookPost.mainItem.filter(function(t) {
+            s.join(", ").includes(t) && bookPost.mainItemArr.push({
+              title: a,
+              link: u,
+              image: m,
+              category: s
+            })
+          }), bookPost.subItem.filter(function(t) {
+            s.join(", ").includes(t) && bookPost.subItemArr.push({
+              titleSub: a,
+              linkSub: u,
+              publishedSub: l,
+              categorySub: s
+            })
+          })
+        }), bookPost.mainItemArr.length > 0) {
+        var i = "";
+        bookPost.mainItemArr.forEach(function({
+          title: t,
+          link: e,
+          image: n,
+          category: r
+        }) {
+          var o = r.find(t => ['New', 'Hot'].includes(t)),
+            a = "";
+          bookPost.subItemArr.length > 0 && bookPost.subItemArr.forEach(function({
+            titleSub: t,
+            linkSub: e,
+            publishedSub: n,
+            categorySub: i
+          }) {
+            var o = t;
+            bookPost.settingTitle.forEach(function({
+              name: e,
+              news: n
+            }) {
+              _p = t.split("Volume")[0], 
+              _pp = _p.split("Chapter")[0], 
+              o.includes(e) && (o = t.replace(_pp, "").replace("Volume", "Vol.").replace("Chapter", "Ch.").replace(/[^0-9]+$/g, ""))
+            }), i.filter(function(i) {
+              r.join(", ").includes(i) && (a += `<li class="char"><a href="${e}" title="${t}">${o}</a><span>${n}</span></li>`)
+            })
+          }), i += `<div class="bookItem"><div class="uta"><div class="imgu"><a href="${e}" title="${t}"><img src="${n}"/>`, o && (i += `<span class='p-${o}'>${o}</span>`), i += `</a></div><div class="luf"><a href="${e}" title="${t}"><h3>${t}</h3></a><ul class="subItem">${a}</ul></div></div></div>`
+        }), n.innerHTML = i
+      }
+    },
+    run: function() {
+      var _target_da = document.querySelector(".listupd");
+      if (_target_da) {
+        var _labelku = _target_da.dataset.label || 'Project',
+            _postku = _target_da.dataset.post || '150';
+      }
+      var n = document.createElement("script");
+      n.src = `https://lightnovel-clone.blogspot.com/feeds/posts/default/-/${_labelku}?alt=json-in-script&max-results=${_postku}&callback=bookPost.compile`, document.body.appendChild(n)
+    }
+  };
+  bookPost.mainItem = ['Web Novel', 'Light Novel', 'Doujinshi',], 
+  bookPost.subItem = ["Chapter"], 
+  bookPost.settingTitle = [{
+    name: "Chapter",
+    news: "Ch."
+  }];
+  bookPost.run();
+</script>

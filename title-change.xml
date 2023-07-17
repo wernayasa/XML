@@ -54,20 +54,6 @@
   </b:with>
 </b:includable>
 
-<!--Title-->
-<b:with value='"Katainaka no Ossan Chapter 05"' var='title'>
-  <!--Check Item-->
-  <b:with value='["Chapter", "Episode", "Ep.", "Ch."]' var='check'>
-    <!--Get Check Item from title-->
-    <b:loop values='data:check where (k => data:title contains data:k)' var='check'>
-      <!--Use Global Data getNumb-->
-      <b:include name='getNumb' data='{
-        name: data:title,
-        word: data:check
-      }'/>
-    </b:loop>
-  </b:with>
-</b:with>
 
        <!--Title-->
         <b:loop index='i' values='data:posts' var='post'>
@@ -82,3 +68,17 @@
             </b:with>
           </b:with>
         </b:loop>
+        
+<!--Title-->
+<b:loop values='data:posts' var='post'>
+  <b:with value='["Chapter", "Episode", "Ep.", "Ch."]' var='check'>
+    <!--Get Check Item from title-->
+    <b:loop values='data:check where (k => data:post.title contains data:k)' var='check'>
+      <!--Use Global Data getNumb-->
+      <b:include name='getNumb' data='{
+        name: data:post.title,
+        word: data:check
+      }'/>
+    </b:loop>
+  </b:with>
+</b:loop>

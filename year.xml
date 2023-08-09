@@ -1,0 +1,17 @@
+.year {
+  padding: 2px 6px;
+  background-color: purple;
+  border-bottom-left-radius: 8px;
+}
+
+<div class='absolute t-0 r-0 fs-13 c-eee'>
+<b:with value='["2021","2022","2023","2024"]' var='year'>
+  <b:loop index='i' values='data:post.labels' var='label'>
+    <b:if cond='data:label.name in data:year'>
+      <span class='year'>
+        <data:label.name/>
+      </span>
+    </b:if>
+  </b:loop>
+</b:with>
+</div>

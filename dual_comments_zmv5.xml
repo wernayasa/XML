@@ -1,0 +1,33 @@
+<!-- Paste above </body> -->
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js'/>
+
+<!-- replace id='commentPicker' with new one bellow -->
+
+  
+                            <b:includable id='commentPicker' var='post'>
+                              <div class='a4'>
+                                <div class='mb-20'>
+                                  <ul class='flex flex-wrap -mb-px text-sm font-medium lsn gg-15 pl-0 m-0' data-tabs-toggle='#default-tab-content' id='default-tab' role='tablist'>
+                                    <li class='me-2' role='presentation'>
+                                      <button aria-controls='profile' aria-selected='false' class='bn p-y10x15 c-fff r2 s2 bg-main cp' data-tabs-target='#profile' id='profile-tab' role='tab' type='button'>Blogger</button>
+                                    </li>
+                                    <li class='me-2' role='presentation'>
+                                      <button aria-controls='dashboard' aria-selected='false' class='bn p-y10x15 c-fff r2 s2 bg-main cp' data-tabs-target='#dashboard' id='dashboard-tab' role='tab' type='button'>Disqus</button>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div id='default-tab-content'>
+                                  <div aria-labelledby='profile-tab' class='hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800' id='profile' role='tabpanel'>
+                                    <b:if cond='data:post.showThreadedComments'>
+                                      <b:include data='post' name='threadedComments'/>
+                                      <b:else/>
+                                      <b:include data='post' name='threadedComments'/> 
+                                    </b:if>
+                                  </div>
+                                  <div aria-labelledby='dashboard-tab' class='hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800' id='dashboard' role='tabpanel'>
+                                    <b:include data='post' name='Disqus'/>
+                                  </div>
+                                </div>
+                              </div>        
+                            </b:includable>

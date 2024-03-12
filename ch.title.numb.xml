@@ -1,0 +1,56 @@
+<b:includable id='getNumb' var='object'>
+  <!--Number-->
+  <b:with value='[0,1,2,3,4,5,6,7,8,9]' var='number'>
+    <!--Check-->
+    <b:with value='data:object.check ? true : false' var='check'>
+      <!--Get Next Number-->
+      <b:if cond='data:check'>
+        <!--Filter Next Number-->
+        <b:with value='data:number filter (k =&gt; data:object.name contains data:word + data:k)' var='number'>
+          <!--Check Number Exists-->
+          <b:if cond='data:number.length != 0'>
+            <b:loop values='data:number' var='number'>
+              <b:with value='data:object.word + data:number' var='word'>
+                <!--Bundle All Number-->
+                <b:with value='data:object.number + &quot;&quot; + data:number' var='number'>
+                  <!--Repeat to get Next Number-->
+                  <b:include data='{                     name: data:object.name,                     check: true,                     number: data:number,                     word: data:word                   }' name='getNumb'/>
+                </b:with>
+              </b:with>
+            </b:loop>
+            <!--Absolute Value / Origin-->
+            <b:else/>
+              <a class='ch text-lg dark:visited:text-gray-500 visited:text-gray-400 text-black dark:text-gray-200 mt-2 block' expr:href='data:post.url' expr:title='data:post.title'>Ch. <data:object.number/></a>
+              <time class='timeago text-xs' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+                <data:post.date/>
+              </time>
+              <b:if cond='data:post.labels any (i =&gt; i.name in data:checkLabel)'>
+                <b:loop values='data:post.labels filter (i =&gt; i.name not in data:checkLabel)' var='l'>
+                  <a class='block overflow-hidden text-xs truncate' expr:href='data:l.url' rel='tag'><data:l.name/></a>
+                </b:loop>
+              </b:if>
+          </b:if>
+        </b:with>
+        <!--Get First Number-->
+        <b:else/>
+        <b:loop values='data:number where (k =&gt; data:object.name contains data:object.word + &quot; &quot; + data:k)' var='number'>
+          <!--Bundle Word Item + Number-->
+          <b:with value='data:object.word + &quot; &quot; + data:number' var='word'>
+            <!--Repeat to get Next Number-->
+            <b:include data='{               name: data:object.name,               check: true,               number: data:number,               word: data:word             }' name='getNumb'/>
+          </b:with>
+        </b:loop>
+      </b:if>
+    </b:with>
+  </b:with>
+</b:includable>
+
+
+
+<b:with value='[&quot;Chapter&quot;, &quot;Episode&quot;, &quot;Ep.&quot;, &quot;Ch.&quot;]' var='check'>
+                  <!--Get Check Item from title-->
+                  <b:loop values='data:check where (k =&gt; data:post.title contains data:k)' var='check'>
+                    <!--Use Global Data getNumb-->
+                    <b:include data='{         name: data:post.title,         word: data:check       }' name='getNumb'/>
+                  </b:loop>
+                </b:with>

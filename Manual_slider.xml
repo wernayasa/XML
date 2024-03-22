@@ -1,0 +1,37 @@
+<!-- Paste above /head> -->
+
+<link href='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' rel='stylesheet'/>
+<script src='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'/>
+
+<!-- Find "big-slider Add swiper class , replace old class with this new class-->
+
+"big-slider swiper swiper-container slidernom3""big-slider swiper swiper-container slidernom3"
+
+
+<!--Paste above </body> -->
+  
+<script type='text/javascript'>
+/*<![CDATA[*/
+const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+/*]]>*/
+</script>

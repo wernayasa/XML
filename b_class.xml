@@ -88,6 +88,16 @@ ADD CONTENT HERE
 <b:section cond='data:widgets.PageList.notEmpty' id='page-list'/>
 <b:section cond='cond='(data:widgets.PageList filter (w => w.id == "PageList1")).notEmpty'' id='page-list'/>
 
+<!-- Contain -->
+<b:if cond='!(data:view.title contains "Player Streaming")'>
+*//*! ALL CSS OR B:SKIN */
+</b:if>
+	
+<b:if cond='!(data:view.title contains "Player Streaming")'>
+*//*! ALL WIDGET AND SCRIPT */
+</b:if>
+
+	
 <!-- TIME -->
 <time>
 <b:eval expr='data:post.date format &quot;MMM dd&quot; '/>

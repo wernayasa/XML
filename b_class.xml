@@ -44,10 +44,16 @@
 	  <b:if cond='data:this.isSearch'>
 
 <!-- Label Search Custom Icon -->
-<b:if cond='data:view.isSearch and (data:view.title contains &quot;Announcements&quot;)'>
-</b:if>
-<!-- Not -->
-<b:if cond='data:view.isSearch and !(data:view.title contains &quot;Announcements&quot;)'>
+<b:if cond='data:view.isSearch'>
+  <b:if cond='data:view.search.label == "Announcements"'>
+    <i class='fa fa-bullhorn'></i>
+  <b:elseif cond='data:view.search.label == "Tutorials"'/>
+    <i class='fa fa-book'></i>
+  <b:elseif cond='data:view.search.label == "Review"'/>
+    <i class='fa fa-star'></i>
+  <b:else/>
+    <i class='fa fa-tag'></i>
+  </b:if>
 </b:if>
 		  
 <!-- Target More -->
@@ -411,6 +417,7 @@ For instance, if the first 500 posts of your blog feed are here:
 the second 500 posts are here:
 
     http://YOURBLOG.blogspot.com/feeds/posts/default?max-results=999&start-index=501
+
 
 
 
